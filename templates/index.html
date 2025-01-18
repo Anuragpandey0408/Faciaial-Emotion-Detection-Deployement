@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Emotion Recognition</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Emotion Recognition</div>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Upload Image</a></li>
+            <li><a href="/live">Live Detection</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Facial Emotion Recognition</h1>
+        <form action="/" method="POST" enctype="multipart/form-data" class="upload-form">
+            <label for="image">Upload Image:</label>
+            <input type="file" name="image" required class="file-input">
+            <button type="submit" class="btn">Predict Emotion</button>
+        </form>
+
+        <button type="button" class="live-btn" onclick="window.location.href='/live'">
+            <i class="fas fa-video"></i> Live Emotion Detection
+        </button>
+
+        {% if result %}
+            <h2>Predicted Emotion: {{ result }}</h2>
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image" class="result-image">
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+</body>
+</html>
